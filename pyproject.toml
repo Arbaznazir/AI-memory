@@ -8,6 +8,8 @@ version = "0.1.0"
 description = "Self-updating codebase knowledge graph for AI-powered IDEs"
 readme = "README.md"
 license = {text = "MIT"}
+authors = [{name = "Arbaz Nazir", email = "arbaznazir@example.com"}]
+keywords = ["ai", "memory", "codebase", "knowledge-graph", "token-saving", "windsurf", "cursor"]
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -40,6 +42,11 @@ dependencies = [
 [project.scripts]
 ai-memory = "ai_memory.cli:cli"
 ai-memory-mcp = "ai_memory.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/Arbaznazir/AI-memory"
+Repository = "https://github.com/Arbaznazir/AI-memory"
+Issues = "https://github.com/Arbaznazir/AI-memory/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
