@@ -117,11 +117,12 @@ def build_flows(db: GraphDB, max_depth: int = 6) -> int:
         # Find nodes with no incoming 'calls' edges but with outgoing calls
         cur = db.conn.execute(
             """
-            SELECT n.*, f.path as file_path,
-                   (SELECT COUNT(*) FROM edges WHERE target_id = n.id AND type = 'calls') as in_degree,
-                   (SELECT COUNT(*) FROM edges WHERE source_id = n.id AND type = 'calls') as out_degree
-            FROM nodes n JOIN files f ON n.file_id = f.id
-            HAVING out_degree > 0
+            SELECT *, in_degree, out_degree FROM (
+                SELECT n.*, f.path as file_path,
+                       (SELECT COUNT(*) FROM edges WHERE target_id = n.id AND type = 'calls') as in_degree,
+                       (SELECT COUNT(*) FROM edges WHERE source_id = n.id AND type = 'calls') as out_degree
+                FROM nodes n JOIN files f ON n.file_id = f.id
+            ) WHERE out_degree > 0
             ORDER BY out_degree DESC LIMIT 20
             """
         )
