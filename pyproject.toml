@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Self-updating codebase knowledge graph for AI-powered IDEs"
 readme = "README.md"
 license = {text = "MIT"}
-authors = [{name = "Arbaz Nazir", email = "arbaznazir@example.com"}]
+authors = [{name = "Arbaz Nazir", email = "arbaznazir4@gmail.com"}]
 keywords = ["ai", "memory", "codebase", "knowledge-graph", "token-saving", "windsurf", "cursor"]
 requires-python = ">=3.10"
 classifiers = [
