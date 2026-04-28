@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "codebase-memory"
-version = "0.1.0"
+version = "0.1.1"
 description = "Self-updating codebase knowledge graph for AI-powered IDEs"
 readme = "README.md"
 license = {text = "MIT"}

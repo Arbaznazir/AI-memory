@@ -1,6 +1,5 @@
 """Semantic search using sentence-transformers embeddings on symbol metadata."""
 import json
-import numpy as np
 from typing import Dict, List, Optional, Tuple
 
 from .db import GraphDB
@@ -31,12 +30,22 @@ def _encode(texts: List[str]) -> List[List[float]]:
 
 
 def _cosine_similarity(a: List[float], b: List[float]) -> float:
-    a_arr = np.array(a)
-    b_arr = np.array(b)
-    norm = np.linalg.norm(a_arr) * np.linalg.norm(b_arr)
-    if norm == 0:
-        return 0.0
-    return float(np.dot(a_arr, b_arr) / norm)
+    try:
+        import numpy as np
+        a_arr = np.array(a)
+        b_arr = np.array(b)
+        norm = np.linalg.norm(a_arr) * np.linalg.norm(b_arr)
+        if norm == 0:
+            return 0.0
+        return float(np.dot(a_arr, b_arr) / norm)
+    except ImportError:
+        # Fallback: pure Python cosine similarity
+        dot = sum(x * y for x, y in zip(a, b))
+        norm_a = sum(x * x for x in a) ** 0.5
+        norm_b = sum(x * x for x in b) ** 0.5
+        if norm_a == 0 or norm_b == 0:
+            return 0.0
+        return dot / (norm_a * norm_b)
 
 
 def build_embeddings(db: GraphDB, batch_size: int = 64, incremental: bool = False) -> int:
